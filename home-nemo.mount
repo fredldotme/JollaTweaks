@@ -1,0 +1,14 @@
+# /etc/systemd/system/home-nemo.mount
+
+[Unit]
+Description=SD card btrfs subvolume for home
+Before=local-fs.target
+After=home.mount
+
+[Mount]
+What=/dev/mmcblk1
+Where=/home/nemo
+Options=subvol=home,noatime,ssd,noacl,space_cache,autodefrag
+
+[Install]
+WantedBy=local-fs.target

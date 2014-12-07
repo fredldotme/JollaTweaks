@@ -1,0 +1,18 @@
+# /etc/systemd/system/data-media.mount
+
+[Unit]
+Description=SD card btrfs subvolume for Android
+ConditionPathExists=/dev/mmcblk1
+ConditionPathIsDirectory=/data/media
+Requires=local-fs.target
+Before=aliendalvik.service
+After=local-fs.target mount-sd@mmcblk1.service
+BindsTo=mount-sd@mmcblk1.service
+
+[Mount]
+What=/dev/mmcblk1
+Where=/data/media
+Options=subvol=android,compress,dirsync,noatime,users
+
+[Install]
+WantedBy=local-fs.target aliendalvik.service
